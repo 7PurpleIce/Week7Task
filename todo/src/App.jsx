@@ -4,6 +4,8 @@ import styles from './app.module.css'
 
 function App() {
   const [newTodo, setNewTodo] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSortEnabled, setIsSortEnabled] = useState(false);
   const [refreshTodoFlag, setRefreshTodoFlag] = useState(false)
   const refreshTodos = () => setRefreshTodoFlag(!refreshTodoFlag)
 
@@ -24,8 +26,20 @@ function App() {
     setNewTodo('')
   }
 
+  // Фильтрация дел по строке поиска
+  const filteredTodos = todos
+    .filter((todo) =>
+      todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  // Сортировка дел по алфавиту, если включен режим сортировки
+  const sortedTodos = isSortEnabled
+    ? [...filteredTodos].sort((a, b) => a.title.localeCompare(b.title))
+    : filteredTodos;
+
   return (
       <div className={styles.app}>
+        {/* Добавление новой задачи */}
         <div className={styles.addTask}>
         <input
           type="text"
@@ -41,11 +55,28 @@ function App() {
         >
           {isCreating ? 'Adding...' : 'Add Task'}
         </button>
+        {/* Поле для поиска */}
+      <div className={styles.searchSection}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search tasks"
+          className={styles.input}
+        />
+        <button
+          onClick={() => setIsSortEnabled(!isSortEnabled)}
+          className={styles.button}
+        >
+          {isSortEnabled ? 'Disable Sorting' : 'Sort Alphabetically'}
+        </button>
+      </div>
         </div>
+        {/* Отображение дел */}
         {isLoading 
           ? <div className={styles.loader}></div> 
           : (
-            todos.map(({ id, title, completed }) => (
+            sortedTodos.map(({ id, title, completed }) => (
               <div key={id} className={styles.task}>
                 <span>{title} {completed ? '|| Completed' : '|| Pending'}</span>
                 <button
