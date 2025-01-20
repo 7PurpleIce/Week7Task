@@ -7,20 +7,22 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSortEnabled, setIsSortEnabled] = useState(false);
   const [refreshTodoFlag, setRefreshTodoFlag] = useState(false)
+  // Функция обновления флага refreshTodoFlag
   const refreshTodos = () => setRefreshTodoFlag(!refreshTodoFlag)
-
+  // Пользовательский хук получения заданий
   const { isLoading, todos } = 
     useRequestGetTodos(refreshTodoFlag)
-
+  // Пользовательский хук создания задачи
   const { isCreating, requestAddTodoTask } = 
     useRequestAddTodoTask(refreshTodos)
-
+  // Пользовательский хук удаления задачи
   const {isDeleting, requestDeleteTask} =
     useRequestDeleteTask(refreshTodos)
-
+  // Пользовательский хук обновления состояния задачи
   const { isUpdating, requestUpdateTask } =
     useRequestUpdateTask(refreshTodos)
-
+  
+  // Хендлер добавления задачи
   const handleAddTodo = () => {
     requestAddTodoTask(newTodo)
     setNewTodo('')
@@ -79,6 +81,7 @@ function App() {
             sortedTodos.map(({ id, title, completed }) => (
               <div key={id} className={styles.task}>
                 <span>{title} {completed ? '|| Completed' : '|| Pending'}</span>
+                {/* Обновление задачи */}
                 <button
                   onClick={() => requestUpdateTask(id, completed)} 
                   disabled={isUpdating}
@@ -86,6 +89,7 @@ function App() {
                 >
                   {isUpdating ? 'Updating...' : 'Toggle Completion'}
                 </button> 
+                {/* Удаление задачи */}
                 <button
                   onClick={() => requestDeleteTask(id)} 
                   disabled={isDeleting}
