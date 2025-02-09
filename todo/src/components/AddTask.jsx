@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import styles from '../app.module.css'
+import { useState } from "react";
+import { useTodoContext } from "../Context";
+import styles from "../app.module.css";
 
-export const AddTask = ({ onAddTask, isCreating }) => {
-  const [newTodo, setNewTodo] = useState('');
+export const AddTask = () => {
+  const { requestAddTodoTask, isCreating } = useTodoContext();
+  const [newTodo, setNewTodo] = useState("");
 
   const handleAddTodo = () => {
-    onAddTask(newTodo);
-    setNewTodo('');
+    requestAddTodoTask(newTodo);
+    setNewTodo("");
   };
 
   return (
@@ -23,9 +25,8 @@ export const AddTask = ({ onAddTask, isCreating }) => {
         disabled={isCreating || !newTodo.trim()}
         className={styles.button}
       >
-        {isCreating ? 'Adding...' : 'Add Task'}
+        {isCreating ? "Adding..." : "Add Task"}
       </button>
     </div>
   );
 };
-
