@@ -1,132 +1,152 @@
+/* Общий стиль для всей страницы */
 .app {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #626268;
-    font-family: Arial, sans-serif;
-    color: #333;
+    background: linear-gradient(135deg, #4a4a4f, #2e2e33);
+    font-family: 'Poppins', sans-serif;
+    color: #f1f1f1;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
 }
 
+/* Стили для загрузочного индикатора */
 .loader {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     position: fixed;
     top: 50%;
     left: 50%;
-    aspect-ratio: 1;
     border-radius: 50%;
     animation: l5 1s infinite linear alternate;
 }
 
 @keyframes l5 {
-    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
-    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
-    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
-    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
+    0%  {box-shadow: 25px 0 #fff, -25px 0 rgba(255,255,255,0.2); background: #fff;}
+    50% {box-shadow: 25px 0 rgba(255,255,255,0.2), -25px 0 #fff; background: rgba(255,255,255,0.2);}
+    100%{box-shadow: 25px 0 rgba(255,255,255,0.2), -25px 0 #fff; background: #fff;}
 }
 
+/* Карточка задачи */
 .task {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+    margin: 12px 0;
+    padding: 15px;
+    border-radius: 8px;
+    background: #fff;
+    color: #000;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
+.task:hover {
+    transform: scale(1.03);
+}
+
+/* Поля ввода и секции */
 .addTask, .searchSection {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
-    max-width: 600px;
-    box-sizing: border-box;
+    max-width: 650px;
 }
 
 .input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
     flex: 1;
-    min-width: 200px;
+    min-width: 220px;
     box-sizing: border-box;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .input:focus {
-    border-color: #4CAF50;
+    border-color: #00c853;
+    box-shadow: 0px 0px 10px rgba(0, 200, 83, 0.5);
 }
 
+/* Кнопки */
 .button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #00c853, #009624);
     color: white;
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #009624, #007b00);
+    transform: scale(1.05);
 }
 
 .button:disabled {
-    background-color: red;
+    background: grey;
     transform: scale(0.95);
-}
-
-.deleteButton {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-}
-
-.deleteButton:hover {
-    background-color: darkred;
-}
-
-.deleteButton:disabled {
-    background-color: grey;
     cursor: not-allowed;
 }
 
-.updateButton {
-    background-color: #007BFF;
+/* Кнопки удаления */
+.deleteButton {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    border-radius: 6px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.deleteButton:hover {
+    background: linear-gradient(135deg, #b71c1c, #8b0000);
+    transform: scale(1.05);
+}
+
+.deleteButton:disabled {
+    background: grey;
+    cursor: not-allowed;
+}
+
+/* Кнопка обновления */
+.updateButton {
+    background: linear-gradient(135deg, #1976d2, #0d47a1);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 6px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .updateButton:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0d47a1, #06357a);
     transform: scale(1.05);
 }
 
 .updateButton:disabled {
-    background-color: grey;
+    background: grey;
     cursor: not-allowed;
     transform: scale(0.95);
 }
