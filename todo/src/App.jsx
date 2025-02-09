@@ -17,10 +17,6 @@ function App() {
   const { isDeleting, requestDeleteTask } = useRequestDeleteTask(refreshTodos);
   const { isUpdating, requestUpdateTask } = useRequestUpdateTask(refreshTodos);
 
-  const handleAddTask = (newTodo) => {
-    requestAddTodoTask(newTodo);
-  };
-
   const filteredTodos = todos.filter((todo) =>
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -31,7 +27,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <AddTask onAddTask={handleAddTask} isCreating={isCreating} />
+      <AddTask onAddTask={requestAddTodoTask} isCreating={isCreating} />
       <SearchAndSort
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
